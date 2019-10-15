@@ -7,13 +7,16 @@ import pe.isil.model.Book;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 public class App {
     public static void main(String[] args) {
         System.out.println("Welcome to the jungle!");
 
+        Random random = new Random();
+
         Author author1 = new Author();
-        author1.setDocumentNumber("A0000001");
+        author1.setDocumentNumber("A"+ random.nextInt()+1);
         author1.setFirstName("JK ");
         author1.setLastNameFather("Rowling");
         author1.setLastNameMother("");

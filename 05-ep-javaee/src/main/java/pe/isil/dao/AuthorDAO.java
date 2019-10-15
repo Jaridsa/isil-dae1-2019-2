@@ -4,9 +4,8 @@ package pe.isil.dao;
 import pe.isil.model.Author;
 import pe.isil.util.DatabaseUtil;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDAO implements DAO<Author, String> {
@@ -46,6 +45,27 @@ public class AuthorDAO implements DAO<Author, String> {
 
     @Override
     public List<Author> findAll() {
-        return null;
+        List<Author> users = new ArrayList<>();
+        try (Connection connection = DatabaseUtil.getConnection()) {
+            final String sql = "SELECT * FROM author";
+            try (Statement statement = connection.createStatement()) {
+                try (ResultSet resultSet = statement.executeQuery(sql)) {
+                    while (resultSet.next()) {
+                        Author author = new Author(
+                                resultSet.getString("document_number"),
+                                resultSet.getString("first_name"),
+                                resultSet.getString("last_name_father"),
+                                resultSet.getString("last_name_mother"),
+                                resultSet.getDate("birth_date").toLocalDate(),
+                                resultSet.getString("biography")
+                        );
+                        users.add(author);
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+        return users;
     }
 }
