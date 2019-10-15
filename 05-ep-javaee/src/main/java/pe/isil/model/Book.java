@@ -17,5 +17,6 @@ public class Book {
     private LocalDate publicationDate;
     private Integer numberOfPages;
     private String languages;
+    private String documentNumber;
 
 }
