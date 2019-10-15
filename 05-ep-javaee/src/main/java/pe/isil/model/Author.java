@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Data
 public class Author {
 
+    private String documentNumber;
     private String firstName;
     private String lastNameFather;
     private String lastNameMother;
