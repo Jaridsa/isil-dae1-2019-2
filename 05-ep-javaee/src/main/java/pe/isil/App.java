@@ -2,6 +2,7 @@ package pe.isil;
 
 
 import pe.isil.dao.AuthorDAO;
+import pe.isil.dao.BookDAO;
 import pe.isil.model.Author;
 import pe.isil.model.Book;
 
@@ -14,7 +15,9 @@ public class App {
         System.out.println("Welcome to the jungle!");
 
         Random random = new Random();
-        String documentNumber = "A"+ random.nextInt()+1;
+        int number = random.nextInt(1000-500)+500;
+        String documentNumber = "A"+ number;
+        String isbn = "B"+ number;
 
         Author author1 = new Author();
         author1.setDocumentNumber(documentNumber);
@@ -30,24 +33,41 @@ public class App {
         List<Author> authors = authorDAO.findAll();
         authors.forEach(System.out::println);
 
-        Author author = authorDAO.findOne(documentNumber);
-        System.out.println("author = " + author);
+        author1 = authorDAO.findOne(documentNumber);
+        System.out.println("author = " + author1);
 
-        author.setLastNameMother("AAAA");
-        authorDAO.update(author);
+        author1.setLastNameMother("AAAA");
+        authorDAO.update(author1);
 
-        author = authorDAO.findOne(documentNumber);
-        System.out.println("authorUpdated = " + author);
-
-        authorDAO.delete(author);
-
-//        Book book1 = new Book();
-//        book1.setIsbn("S0001");
-//        book1.setTitle("Harry Potter y la piedra filosofal ");
-//        book1.setLanguages("Español");
-//        book1.setNumberOfPages(1024);
-//        book1.setPublicationDate(LocalDate.of(1997,6,26));
+        author1 = authorDAO.findOne(documentNumber);
+        System.out.println("authorUpdated = " + author1);
 
 
+        Book book1 = new Book();
+        book1.setIsbn(isbn);
+        book1.setTitle("Harry Potter y la piedra filosofal ");
+        book1.setSummary("bla bla bla");
+        book1.setLanguages("Español");
+        book1.setNumberOfPages(1024);
+        book1.setPublicationDate(LocalDate.of(1997,6,26));
+        book1.setDocumentNumber(documentNumber);
+
+        BookDAO bookDAO = new BookDAO();
+        bookDAO.create(book1);
+
+        List<Book> books = bookDAO.findAll();
+        books.forEach(System.out::println);
+
+        book1 = bookDAO.findOne(isbn, documentNumber);
+        System.out.println("book = " + book1);
+
+        book1.setTitle("AAAAAAAA");
+        bookDAO.update(book1);
+
+        book1 = bookDAO.findOne(isbn, documentNumber);
+        System.out.println("book = " + book1);
+
+        bookDAO.delete(book1);
+        authorDAO.delete(author1);
     }
 }
