@@ -23,6 +23,7 @@
         <module>04-javaee-web</module>
         <module>00-javaee-util</module>
         <module>05-ep-javaee</module>
+        <module>06-javaee-hibernate-jpa</module>
     </modules>
 
 </project>
