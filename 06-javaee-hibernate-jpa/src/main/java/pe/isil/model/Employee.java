@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tbl_employee")
@@ -24,12 +24,12 @@ public class Employee {
     private String lastNameMother;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     public Employee() {
     }
 
-    public Employee(Long documentNumber, String firstName, String lastNameFather, String lastNameMother, Date birthDate) {
+    public Employee(Long documentNumber, String firstName, String lastNameFather, String lastNameMother, LocalDate birthDate) {
         this.documentNumber = documentNumber;
         this.firstName = firstName;
         this.lastNameFather = lastNameFather;
@@ -69,11 +69,11 @@ public class Employee {
         this.lastNameMother = lastNameMother;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
