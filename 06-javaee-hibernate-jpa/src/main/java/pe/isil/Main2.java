@@ -15,19 +15,32 @@ public class Main2 {
 
     public static void main(String[] args) {
 
+        insertInitial();
+        printEmployees();
 
+        EntityManager manager = emf.createEntityManager();
+        manager.getTransaction().begin();
+
+        Employee e = manager.find(Employee.class, 10L);
+        e.setLastNameFather("AAAA");
+        manager.getTransaction().commit();
+
+        printEmployees();
+        manager.close();
 
     }
 
     private static void insertInitial() {
-        EntityManager manager = emf.createEntityManager();
-        manager.getTransaction().begin();
         Employee employee = new Employee();
         employee.setDocumentNumber(10L);
         employee.setFirstName("Jose");
         employee.setLastNameFather("Ventura");
         employee.setLastNameMother("Arteaga");
         employee.setBirthDate(LocalDate.of(2000,3,31));
+
+        EntityManager manager = emf.createEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(employee);
         manager.getTransaction().commit();
         manager.close();
     }
